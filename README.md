@@ -22,3 +22,73 @@ new DB("mysql").Connect(config,(model,err)=>{
         console.log("Connect OK");
         }
 ```
+### Select
+Select table tags
+```js
+model.tags.Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags only obj_id colum
+```js
+model.tags.field(["obj_id"]).Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and where obj_id = 1
+```js
+ model.tags.where({obj_id:1}).Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and where obj_id = 1 and tag_type = news
+```js
+model.tags.where({obj_id:1,tag_type:"news"}).Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and where obj_id >= 10
+```js
+model.tags.where("obj_id >= 10").Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and limit 1
+```js
+model.tags.limit(1).Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and start 3 lines and limit display to 3 rows
+```js
+model.tags.limit(3,6).Select((res)=>{
+                console.log(res);
+        });
+```
+
+Select table tags and order asc lines and limit display to 10 rows
+```js
+model.tags.limit(10).order("tag","asc").Select((res)=>{
+                console.log(res);
+        });
+```
+### Insert
+```js
+model.tags.Insert({obj_id:99,tag_type:"interface",tag:"Тест"},(res)=>{
+                console.log(res)
+        });
+```
+
+### Update
+Update obj_id = 99 set obj_id = 69
+```js
+model.tags.set({obj_id:69}).where({obj_id:99}).Update((res)=>{
+                console.log(res)
+        });
+```
