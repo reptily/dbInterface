@@ -15,3 +15,10 @@ const config = {
         };
 const con = new DB("mysql");
 ```
+###Connect
+```js
+new DB("mysql").Connect(config,(model,err)=>{       
+        if (err) throw err;
+        console.log("Connect OK");
+        }
+```
