@@ -1,0 +1,19 @@
+{
+  "name": "dbInterface",
+  "version": "1.0.0"
+  "main": "db.js",
+  "scripts": {
+      "test": "clear && node ./test/test.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/reptily/dbInterface.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/reptily/dbInterface"
+    },
+    "homepage": "https://github.com/reptily/dbInterface"
+}
