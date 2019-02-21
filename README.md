@@ -1,8 +1,8 @@
 # dbInterface
 Interface for working with various databases (MySQL, MongoDB, ClickHouse)
 
-Initialization module
-
+## Initialization module
+```js
 const DB = require('../db');
 
 const config = {
@@ -14,3 +14,4 @@ const config = {
         debug:false
         };
 const con = new DB("mysql");
+```
