@@ -101,7 +101,7 @@ model.tags.set({obj_id:69}).where({obj_id:99}).Update((res)=>{
 ```
 
 ### Create
-Test Create table tags
+Create table tags
 ```js
 let table = {
                 obj_id:{
@@ -114,7 +114,21 @@ let table = {
                 tag:{}
                 };
         
-        model.Create("tags",table,()=>{
-                print2console("Create table tags");     
+        model.Create("tags",table,(res)=>{
+                console.log(res)   
         });
+```
+
+### Drop
+```js
+model.tags.Drop((res)=>{
+                        console.log(res)   
+                });
+```
+
+### Truncate
+```js
+ model.tags.Truncate((res)=>{
+                        console.log(res) 
+                });
 ```
