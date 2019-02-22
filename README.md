@@ -99,3 +99,22 @@ model.tags.set({obj_id:69}).where({obj_id:99}).Update((res)=>{
                 console.log(res)
         });
 ```
+
+### Create
+Test Create table tags
+```js
+let table = {
+                obj_id:{
+                        type:"int",
+                        count:11,
+                        isNull:false,
+                        autoIncrement:true
+                        },
+                tag_type:{},
+                tag:{}
+                };
+        
+        model.Create("tags",table,()=>{
+                print2console("Create table tags");     
+        });
+```
