@@ -44,6 +44,13 @@ Select table tags and where obj_id = 1
         });
 ```
 
+Select table tags and where obj_id = 1 and obj_id = 3
+```js
+ model.tags.where({obj_id:1},{obj_id:3}).Select((res)=>{
+                console.log(res);
+        });
+```
+
 Select table tags and where obj_id = 1 and tag_type = news
 ```js
 model.tags.where({obj_id:1,tag_type:"news"}).Select((res)=>{
