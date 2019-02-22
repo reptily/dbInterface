@@ -20,7 +20,7 @@ const con = new DB("mysql");
 new DB("mysql").Connect(config,(model,err)=>{       
         if (err) throw err;
         console.log("Connect OK");
-        }
+        });
 ```
 ### Select
 Select table tags
