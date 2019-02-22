@@ -21,7 +21,7 @@ function Controller(){
                 
                 this.con.query("SHOW TABLES", (err, result, fields) => {
                         if (err) throw err;
-                        for(res in result){
+                        for(let res in result){
                                 this.table=result[res]['Tables_in_'+this.config.database];
                                 this[result[res]['Tables_in_'+this.config.database]]=this;
                         }
@@ -40,7 +40,7 @@ function Controller(){
                 let or=false;
                 mWhere.forEach((where,i)=>{
                         if(typeof where == "object"){
-                                for(w in where){
+                                for(let w in where){
                                         key = w;
                                         val = where[w];
                                         this._where += "`"+key+"` = '"+val+"' `~`";
@@ -116,7 +116,7 @@ function Controller(){
                 
                 if(_2d){
                         for(val in arr){                      
-                                for(v in arr[val]){
+                                for(let v in arr[val]){
                                         vals += "'"+arr[val][v]+"',";
                                         if(val == 0){
                                                 keys += "`"+v+"`,";
@@ -126,7 +126,7 @@ function Controller(){
                                 vals += "),(";
                         }
                 }else{
-                        for(val in arr){
+                        for(let val in arr){
                                 keys += "`"+val+"`,";
                                 vals += "'"+arr[val]+"',";
                         }
@@ -157,7 +157,7 @@ function Controller(){
         this.set =(set)=>{
                 this._set = "SET ";
                 let vals = "";
-                for(val in set){
+                for(let val in set){
                         vals += "`"+val+"` = '"+set[val]+"',";
                 }
                 vals=vals.substring(0,vals.length-1);
@@ -217,6 +217,119 @@ function Controller(){
                 this._set = "";
                 this._limit = "";
                 this._order = "";
+        };
+        
+        this.Delete = (res)=>{
+                let sql = "DELETE FROM `"+this.table+"`";
+                
+                if(this._where != ""){
+                        sql += " WHERE "+this._where;
+                }
+                
+                if(this.debug) this.Debug(sql);
+                
+                this.Clear();
+                
+                this.con.query(sql, (err, result, fields) => {
+                      if (err) throw err;
+                      
+                      if(typeof res == "function"){
+                        res(result);
+                      }
+                      return;
+                });
+        };
+        
+        this.Drop =(res)=>{
+                let sql = "DROP TABLE `"+this.table+"`";
+                
+                if(this.debug) this.Debug(sql);
+                
+                this.Clear();
+                
+                this.con.query(sql, (err, result, fields) => {
+                      if (err) throw err;
+                      
+                      if(typeof res == "function"){
+                        res(result);
+                      }
+                      return;
+                });
+        };
+        
+        this.Create =(table, values, res)=>{
+                let sql = "CREATE TABLE IF NOT EXISTS `"+table+"` (\n";                
+                
+                let _autoIncrementKey = null;
+                for(let val in values){
+                        sql += "`"+val+"` ";
+                        let _type = "text";
+                        let _count = "";
+                        let _isNull = " NULL";
+                        let _default = "";
+                        let _autoIncrement = "";
+                        
+                        for(let v in values[val]){
+                               switch(v){
+                                        case "type":
+                                                _type=values[val][v];
+                                                break;
+                                        case "count":
+                                                _count="("+parseInt(values[val][v])+")";
+                                                break;
+                                        case "isNull":
+                                                if(!values[val][v]){
+                                                        _isNull = " NOT NULL";
+                                                }
+                                                break;
+                                        case "autoIncrement":
+                                                _autoIncrement = " AUTO_INCREMENT";
+                                                _autoIncrementKey = val;
+                                                break;
+                                        case "default":
+                                                _default = " DEFAULT '"+values[val][v]+"'";
+                                                break;
+                                }
+                        }
+                        
+                        sql += _type+_count+_isNull+_default+_autoIncrement+",\n";
+                }
+                if(_autoIncrementKey != null){
+                        sql += "PRIMARY KEY (`"+_autoIncrementKey+"`)\n";
+                }else{
+                        sql=sql.substring(0,sql.length-2);
+                }
+                sql += ")";
+                
+                if(this.debug) this.Debug(sql);
+                
+                this.con.query(sql, (err, result, fields) => {
+                      if (err) throw err;
+                      
+                      if(typeof res == "function"){                      
+                        this.table=table;;
+                        this[table]=this;
+                        res(result);  
+                      }
+                      return;
+                });
+        };
+        
+        this.Truncate =(res)=>{
+                let sql = "TRUNCATE TABLE `"+this.table+"`";
+                
+                if(this.debug) this.Debug(sql);
+                
+                this.Clear();
+                
+                this.con.query(sql, (err, result, fields) => {
+                      if (err) throw err;
+                      
+                      if(typeof res == "function"){
+                        res(result);
+                      }
+                      return;
+                });
         };
         
 }
