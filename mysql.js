@@ -26,8 +26,11 @@ function Controller(){
                         return;
                 });
               });              
-        };      
+        };
         
+        this.Disconnect =()=>{
+                this.con.end();
+        };
 }
 
 function Query(){        
@@ -339,7 +342,7 @@ function Query(){
                       }
                       return;
                 });
-        };
+        };        
 }
 
 module.exports = Controller;
