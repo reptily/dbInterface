@@ -23,7 +23,7 @@ function Controller(){
                         if (err) throw err;
                         for(let res in result){
                                 for(let table in result[res]){
-                                        this[result[res][table]]=new Controller("mysql");
+                                        this[result[res][table]]=new Controller();
                                         this[result[res][table]].con=this.con;
                                         this[result[res][table]].table=result[res][table];
                                 }
