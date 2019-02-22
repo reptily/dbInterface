@@ -11,7 +11,7 @@ function Controller(){
         this._order = "";
         
         this.Connect =(config, call)=>{
-        this.config = config;          
+        this.config = config;
               this.con = mysql.createConnection(config);
               this.con.connect((err)=>{
                  if(err){
@@ -22,8 +22,10 @@ function Controller(){
                 this.con.query("SHOW TABLES", (err, result, fields) => {
                         if (err) throw err;
                         for(let res in result){
-                                this.table=result[res]['Tables_in_'+this.config.database];
-                                this[result[res]['Tables_in_'+this.config.database]]=this;
+                                for(let table in result[res]){
+                                        this.table=result[res][table];
+                                        this[result[res][table]]=this;
+                                }
                         }
                         call(this,err);
                         return;
