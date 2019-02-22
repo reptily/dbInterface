@@ -3,7 +3,7 @@ Interface for working with various databases (MySQL, MongoDB, ClickHouse)
 
 ## Initialization module
 ```js
-const DB = require('../dbInterface/db');
+const DB = require('./dbInterface/db');
 
 const config = {
         host:"127.0.0.1",
