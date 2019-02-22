@@ -2,13 +2,7 @@ const mysql = require('mysql');
 
 function Controller(){
         this.con = null;
-        this.config = {};
-        this.table = null;
-        this._field = [];
-        this._where = "";
-        this._set = "";
-        this._limit = "";
-        this._order = "";
+        this.config = {};        
         
         this.Connect =(config, call)=>{
         this.config = config;
@@ -23,7 +17,7 @@ function Controller(){
                         if (err) throw err;
                         for(let res in result){
                                 for(let table in result[res]){
-                                        this[result[res][table]]=new Controller();
+                                        this[result[res][table]]=new Query();
                                         this[result[res][table]].con=this.con;
                                         this[result[res][table]].table=result[res][table];
                                 }
@@ -32,7 +26,19 @@ function Controller(){
                         return;
                 });
               });              
-        };
+        };      
+        
+}
+
+function Query(){        
+        this.con = null;
+        this.config = {};
+        this.table = null;
+        this._field = [];
+        this._where = "";
+        this._set = "";
+        this._limit = "";
+        this._order = "";
         
         this.field = (field) =>{
               this._field =  field;
@@ -334,7 +340,6 @@ function Controller(){
                       return;
                 });
         };
-        
 }
 
 module.exports = Controller;
