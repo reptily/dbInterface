@@ -1,6 +1,6 @@
 {
   "name": "dbInterface",
-  "version": "1.0.2"
+  "version": "1.0.3"
   "main": "db.js",
   "scripts": {
       "test": "clear && node ./test/test.js"
