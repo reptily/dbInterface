@@ -61,7 +61,7 @@ function Query(){
                                if(where.toLowerCase().trim() == "or"){
                                         or=true;
                                }else{
-                                        mat = where.match(/(.*)(>=|==|<=)(.*)/i);
+                                        mat = where.match(/(.*)(>=|==|<=|!=)(.*)/i);
                                         if(mat == null){
                                                 mat = where.match(/(.*)(>|<)(.*)/i);
                                                 if(mat != null){
