@@ -42,6 +42,8 @@ function Query(){
         this._set = "";
         this._limit = "";
         this._order = "";
+        this.joinTable="";
+        this.join="";
         
         this.field = (field) =>{
               this._field =  field;
@@ -53,7 +55,7 @@ function Query(){
                 mWhere.forEach((where,i)=>{
                         if(typeof where == "object"){
                                 for(let w in where){
-                                        key = w;
+                                        key = w.replace(".","`.`");
                                         val = where[w];
                                         this._where += "`"+key+"` = '"+val+"' `~`";
                                 }
@@ -65,10 +67,10 @@ function Query(){
                                         if(mat == null){
                                                 mat = where.match(/(.*)(>|<)(.*)/i);
                                                 if(mat != null){
-                                                        this._where += "`"+mat[1].trim()+"` "+mat[2].trim()+" '"+mat[3].trim()+"' `~`";
+                                                        this._where += "`"+mat[1].trim().replace(".","`.`")+"` "+mat[2].trim()+" '"+mat[3].trim()+"' `~`";
                                                 }
                                         }else{
-                                                this._where += "`"+mat[1].trim()+"` "+mat[2].trim()+" '"+mat[3].trim()+"' `~`";
+                                                this._where += "`"+mat[1].trim().replace(".","`.`")+"` "+mat[2].trim()+" '"+mat[3].trim()+"' `~`";
                                         }
                                }
                         }
@@ -84,6 +86,37 @@ function Query(){
                 return this;
         };
         
+        this.inner = (table)=>{
+                this.joinTable=table;
+                this.join+=" INNER JOIN `"+table+"` ";
+                return this;
+        };
+        
+        this.left = (table)=>{
+                this.joinTable=table;
+                this.join+=" LEFT JOIN `"+table+"` ";
+                return this;
+        };
+        
+        this.on = (t1,t2)=>{
+                if(t1.search(/\./i) > 0){
+                        t1=t1.split(".");
+                        t1="`"+t1[0]+"`.`"+t1[1]+"`";
+                }else{
+                        t1="`"+this.table+"`.`"+t1+"`";
+                }
+                
+                if(t2.search(/\./i) > 0){
+                        t2=t2.split(".");
+                        t2="`"+t2[0]+"`.`"+t2[1]+"`";
+                }else{
+                        t2="`"+this.joinTable+"`.`"+t2+"`";
+                }
+                
+                this.join+=" ON "+t1+" = "+t2+" ";
+                return this;
+        };
+        
         this.Select =(res)=>{
                 let field = "";
                 if(this._field.length > 0){
@@ -95,6 +128,10 @@ function Query(){
                     field="*";    
                 }
                 let sql = "SELECT "+field+" FROM `"+this.table+"`";
+                
+                if(this.join != ""){
+                        sql+=this.join;
+                }
                
                 if(this._where != ""){
                         sql+=" WHERE "+this._where;
@@ -229,6 +266,8 @@ function Query(){
                 this._set = "";
                 this._limit = "";
                 this._order = "";
+                this.joinTable="";
+                this.join="";
         };
         
         this.Delete = (res)=>{
