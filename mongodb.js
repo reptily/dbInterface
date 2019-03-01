@@ -36,6 +36,10 @@ function Controller(){
                         res(result);
                 });
         };
+        
+        this.Disconnect =()=>{
+                this.con.end();
+        };
 }
 
 function Query(){
