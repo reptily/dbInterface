@@ -1,12 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
 
-/*
-Select
-Update
-Truncate
-Drop
-*/
-
 function Controller(){
         this.con = null;
         this.config = {};
