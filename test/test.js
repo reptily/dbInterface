@@ -18,7 +18,7 @@ const configMongoDB = {
         };
         
 /*Whant run test?*/
-mysql = false;
+mysql = true;
 mongodb= true;
 
         
