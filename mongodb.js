@@ -4,6 +4,7 @@ function Controller(){
         this.con = null;
         this.config = {};
         this.db = null;
+        this.client = null;
         
         this.Connect =(config, call)=>{
                 this.config = config;
@@ -11,8 +12,9 @@ function Controller(){
                 this.con = new MongoClient("mongodb://"+this.config.host+":"+this.config.port+"/", { useNewUrlParser: true });
                 this.con.connect((err, client)=>{
                         if(err) throw err;
+                        this.client=client;
                         
-                        this.db = client.db(this.config.database);
+                        this.db = this.client.db(this.config.database);
                         
                         this.db.listCollections().toArray((err, collections)=>{
                                 if(err) throw err;
@@ -38,7 +40,7 @@ function Controller(){
         };
         
         this.Disconnect =()=>{
-                this.con.end();
+                this.client.close();
         };
 }
 
