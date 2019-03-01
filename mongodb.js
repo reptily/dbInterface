@@ -58,14 +58,18 @@ function Query(){
                         this.db.collection(this.collection).insertOne(obj, (err, result)=>{
                                 if(err) throw err;
                                 this.Clear();
-                                res(result);
+                                if(typeof res == "function"){
+                                        res(result);
+                                }
                                 return;
                         });
                 }else{
                         this.db.collection(this.collection).insertMany(obj, (err, result)=>{
                                 if(err) throw err;
                                 this.Clear();
-                                res(result);
+                                if(typeof res == "function"){
+                                        res(result);
+                                }
                                 return;
                         });
                 }
@@ -157,7 +161,10 @@ function Query(){
         this.Update = (res)=>{console.log(this._where);console.log(this._set)
                 this.db.collection(this.collection).updateMany(this._where,this._set,(err, result)=>{
                         if (err) throw err;
-                        res(result);
+                        if(typeof res == "function"){
+                                res(result);
+                        }
+                        return;
                 });
                 this.Clear();
         };
