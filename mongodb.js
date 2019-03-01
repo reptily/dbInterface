@@ -158,7 +158,7 @@ function Query(){
                 return this;
         };
         
-        this.Update = (res)=>{console.log(this._where);console.log(this._set)
+        this.Update = (res)=>{console.log(this._where);
                 this.db.collection(this.collection).updateMany(this._where,this._set,(err, result)=>{
                         if (err) throw err;
                         if(typeof res == "function"){
