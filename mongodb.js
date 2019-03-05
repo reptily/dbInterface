@@ -56,7 +56,7 @@ function Query(){
         this._set = {};
         
         this.Insert = (obj, res)=>{
-                if(typeof obj == "object"){
+                if(!Array.isArray(obj)){
                         this.db.collection(this.collection).insertOne(obj, (err, result)=>{
                                 if(err) throw err;
                                 this.Clear();
