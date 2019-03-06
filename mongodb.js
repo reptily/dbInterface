@@ -79,10 +79,10 @@ function Query(){
         
         this.field = (obj)=>{
                 this._field.projection={};
+                this._field.projection["_id"]=0;
                 obj.forEach((val,i)=>{
                         this._field.projection[val]=1;
-                });
-                this._field.projection["_id"]=0;
+                });                
                 return this;
         };
         
