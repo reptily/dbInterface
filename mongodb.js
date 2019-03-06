@@ -82,6 +82,7 @@ function Query(){
                 obj.forEach((val,i)=>{
                         this._field.projection[val]=1;
                 });
+                this._field.projection["_id"]=0;
                 return this;
         };
         
