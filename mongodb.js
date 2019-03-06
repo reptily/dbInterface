@@ -25,10 +25,10 @@ function Controller(){
                                         this[val.name].collection=val.name;
                                         this[val.name].db=this.db;
                                 });
+                                
+                                call(this,err);
+                                return;
                         });
-                        
-                        call(this,err);
-                        return;
                 });
         };
         
