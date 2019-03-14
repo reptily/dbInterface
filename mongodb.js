@@ -193,6 +193,16 @@ function Query(){
                 this._sort = {};
                 this._set = {};
         };
+        
+        this.Delete = (res)=>{
+                this.db.collection(this.collection).remove(this._where,(err, result)=>{
+                        if (err) throw err;
+                        if(typeof res == "function"){
+                                res(result);
+                        }
+                        return;
+                });
+        };
 }
 
 module.exports = Controller;
