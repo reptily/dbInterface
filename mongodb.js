@@ -50,7 +50,7 @@ function Query(){
         this.db = null;
         this._where = {};
         this._field = {};
-        this._limit=0;        
+        this._limit = 0;        
         this._skip = 0;
         this._sort = {};
         this._set = {};
@@ -114,7 +114,7 @@ function Query(){
                                                         w={$lte:parseInt(mat[3].trim())};
                                                         break;
                                                 case "==":
-                                                        w={$in:parseInt(mat[3].trim())};
+                                                        w={$in:[parseInt(mat[3].trim())]};
                                                         break;
                                                 case "!=":
                                                         w={$ne:parseInt(mat[3].trim())};
@@ -188,7 +188,7 @@ function Query(){
                 this._field = {};
                 this._where = {};
                 this._field = {};
-                this._limit=0;        
+                this._limit = 0;        
                 this._skip = 0;
                 this._sort = {};
                 this._set = {};
