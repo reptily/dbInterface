@@ -32,7 +32,7 @@ model.tags.Select((res)=>{
 
 Select table tags only obj_id colum
 ```js
-model.tags.feild(["obj_id"]).Select((res)=>{
+model.tags.field(["obj_id"]).Select((res)=>{
                 console.log(res);
         });
 ```
