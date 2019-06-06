@@ -8,7 +8,10 @@ npm install reptily-dbinterface
 
 ## Initialization module
 ```js
+//if custom install
 const DB = require('./dbInterface/db');
+//if install for npm
+const DB = require('reptily-dbinterface'); 
 
 const config = {
         host:"127.0.0.1",
