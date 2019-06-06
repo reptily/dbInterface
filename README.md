@@ -1,6 +1,11 @@
 # dbInterface
 Interface for working with various databases (MySQL, MongoDB, ClickHouse)
 
+install for npm
+```
+npm install reptily-dbinterface
+```
+
 ## Initialization module
 ```js
 const DB = require('./dbInterface/db');
