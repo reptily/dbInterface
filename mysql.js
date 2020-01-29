@@ -166,9 +166,9 @@ function Query(){
     if(_2d){
       for(val in arr){
         for(let v in arr[val]){
-          vals += "'"+arr[val][v]+"',";
+          vals += "'"+this.es(arr[val][v])+"',";
           if(val == 0){
-            keys += "`"+v+"`,";
+            keys += "`"+this.es(v)+"`,";
           }
         }
         vals=vals.substring(0,vals.length-1);
@@ -176,8 +176,8 @@ function Query(){
       }
     }else{
       for(let val in arr){
-        keys += "`"+val+"`,";
-        vals += "'"+arr[val]+"',";
+        keys += "`"+this.es(val)+"`,";
+        vals += "'"+this.es(arr[val])+"',";
       }
     }
 
@@ -382,6 +382,11 @@ function Query(){
     return;
     });
   };
+  
+  this.es = val => {
+    val += '';
+    return val.replace(/\'/gim,"\\'");
+  }
 }
 
 module.exports = Controller;
