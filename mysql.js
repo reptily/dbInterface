@@ -6,25 +6,28 @@ function Controller(){
 
   this.Connect =(config, call)=>{
     this.config = config;
-      this.con = mysql.createConnection(config);
-      this.con.connect((err)=>{
-        if(err){
-          console.log("Connect is falid");
-          throw err;
-        }
-
-    this.con.query("SHOW TABLES", (err, result, fields) => {
-      if (err) throw err;
-      for(let res in result){
-        for(let table in result[res]){
-          this[result[res][table]]=new Query();
-          this[result[res][table]].con=this.con;
-          this[result[res][table]].table=result[res][table];
-        }
+    this.con = mysql.createConnection(config);
+    this.con.connect(err => {
+      if(err){
+        console.log("Connect is falid");
+        throw err;
       }
-      call(this,err);
-      return;
-      });
+
+      this['Create'] = new Query().Create;
+      this['Create'].con = this.con;
+
+      this.con.query("SHOW TABLES", (err, result, fields) => {
+        if (err) throw err;
+        for(let res in result){
+          for(let table in result[res]){
+            this[result[res][table]]=new Query();
+            this[result[res][table]].con=this.con;
+            this[result[res][table]].table=result[res][table];
+          }
+        }
+        call(this, err);
+        return;
+        });
     });
   };
 
@@ -354,12 +357,12 @@ function Query(){
 
     if(this.debug) this.Debug(sql);
 
-    this.con.query(sql, (err, result, fields) => {
+    this['Create'].con.query(sql, (err, result, fields) => {
       if (err) throw err;
 
       if(typeof res == "function"){
-        this.table=table;;
-        this[table]=this;
+        this[table] = new Query();
+        this[table].con = this.con;
         res(result);
       }
       return;
