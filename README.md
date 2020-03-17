@@ -1,5 +1,5 @@
 # dbInterface
-Interface for working with various databases (MySQL, MongoDB, ClickHouse)
+Interface for working with various databases (MySQL, MongoDB, PostgresSQL)
 
 install for npm
 ```

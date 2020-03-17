@@ -1,5 +1,6 @@
-const mysql= require('./mysql');
-const mongodb= require('./mongodb');
+const mysql = require('./mysql');
+const mongodb = require('./mongodb');
+const postgre = require('./postgre');
 
 function DB(type){
   this.type=type;
@@ -7,6 +8,7 @@ function DB(type){
   this.interface=[];
   this.interface['mysql']=mysql;
   this.interface['mongodb']=mongodb;
+  this.interface['postgre']=postgre;
   this.controller=null;
 
   this.Connect =(config,call)=> {
