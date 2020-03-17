@@ -1,5 +1,5 @@
 # dbInterface
-Interface for working with various databases (MySQL, MongoDB, PostgresSQL)
+Interface for working with various databases (MySQL, MongoDB, PostgreSQL)
 
 install for npm
 ```
