@@ -1,5 +1,5 @@
 {
-  "name": "dbInterface",
+  "name": "reptily-dbinterface",
   "version": "1.3.0",
   "main": "db.js",
   "scripts": {
