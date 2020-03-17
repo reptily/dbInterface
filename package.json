@@ -1,6 +1,6 @@
 {
-  "name": "dbInterface",
-  "version": "1.2.0",
+  "name": "reptily-dbinterface",
+  "version": "1.3.0",
   "main": "db.js",
   "scripts": {
     "test": "clear && node ./test/test.js"
