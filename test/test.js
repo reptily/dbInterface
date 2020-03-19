@@ -20,7 +20,7 @@ const configMongoDB = {
 const configPostgre = {
   host:"localhost",
   port:"5432",
-  database:"courier",
+  database:"message",
   user:"default",
   password:"secret",
   debug:true
@@ -204,7 +204,7 @@ if(mongodb){
 if(postgres){
   new DB("postgre").Connect(configPostgre,(model,err)=>{
 
-    model.Create("tags",table,()=>{
+    model.Create("tags",table, model =>{console.log(model)
       print2console("Create table tags");
 
       /*Test Insert*/
