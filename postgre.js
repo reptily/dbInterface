@@ -355,7 +355,7 @@ function Query(){
 
         this.Clear();
 
-        this.con.query(sql, (err, result, fields) => {
+        this.con['pool'].query(sql, (err, result, fields) => {
             if (err) throw err;
 
             if(typeof res == "function"){
@@ -367,7 +367,7 @@ function Query(){
 
 
     this.Truncate =(res)=>{
-        let sql = "TRUNCATE TABLE "+this.table+"";
+        let sql = "TRUNCATE TABLE "+this.table;
 
         if(this.debug) this.Debug(sql);
 
@@ -386,8 +386,51 @@ function Query(){
     this.es = val => {
         val += '';
         return val.replace(/\'/gim,"\\'");
-    }
+    };
 
+    this.addColumn = (name, values, res) => {
+        let sql = "ALTER TABLE "+this.table+" ADD "+this.es(name);
+
+        if (values.length == 0){
+            sql += " text";
+        } else {
+            sql += " "+values.type;
+
+            if (values.default !== undefined) {
+                sql += " DEFAULT "+values.default;
+            }
+        }
+
+        if(this.debug) this.Debug(sql);
+
+        this.Clear();
+
+        this.con['pool'].query(sql, (err, result, fields) => {
+            if (err) throw err;
+
+            if(typeof res == "function"){
+                res(result);
+            }
+            return;
+        });
+    };
+
+    this.removeColumn = (name, res) => {
+        let sql = "ALTER TABLE "+this.table+" DROP COLUMN "+this.es(name);
+
+        if(this.debug) this.Debug(sql);
+
+        this.Clear();
+
+        this.con['pool'].query(sql, (err, result, fields) => {
+            if (err) throw err;
+
+            if(typeof res == "function"){
+                res(result);
+            }
+            return;
+        });
+    };
 }
 
 module.exports = Controller;
