@@ -338,7 +338,7 @@ function Query(){
 
         this.Clear();
 
-        this.con.query(sql, (err, result, fields) => {
+        this.con['pool'].query(sql, (err, result, fields) => {
             if (err) throw err;
 
             if(typeof res == "function"){
