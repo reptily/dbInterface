@@ -9,7 +9,16 @@ function Controller() {
     this.Connect = (config, call) => {
         this.config = config;
 
-        this.con = new MongoClient("mongodb://" + this.config.host + ":" + this.config.port + "/", {useNewUrlParser: true});
+        this.con = new MongoClient("mongodb://" 
+                                   + this.config.user 
+                                   + ":" 
+                                   + this.config.password 
+                                   + "@" 
+                                   + this.config.host 
+                                   + ":" 
+                                   + this.config.port 
+                                   + "/", 
+                                   {useNewUrlParser: true});
         this.con.connect((err, client) => {
             if (err) throw err;
             this.client = client;
