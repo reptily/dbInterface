@@ -18,8 +18,8 @@
   "homepage": "https://github.com/reptily/dbInterface",
   "dependencies": {
     "mongo": "0.1.0",
-    "mysql": "2.17.1",
-    "pg": "^8.11.1"
+    "mysql": "2.18.0",
+    "pg": "^7.18.2"
   },
   "devDependencies": {
     "async": "^3.2.2"
